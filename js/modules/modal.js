@@ -1,5 +1,4 @@
-let isModalOpen = false;
-
+let isFirstModalOpenByScroll = true;
 
 function openModal(modalSelector, modalTimertId) {
     const modal = document.querySelector(modalSelector);
@@ -11,8 +10,7 @@ function openModal(modalSelector, modalTimertId) {
         clearInterval(modalTimertId);
     }
 
-    isModalOpen = true;
-
+    isFirstModalOpenByScroll = false;
     // window.removeEventListener('scroll', showModalByScroll(modalSelector, modalTimertId)); // - предотвращало повторное открывание окна при скорлле, но при использовании модулей перестало работать
 }
 
@@ -53,13 +51,16 @@ function modal(triggerSelector, modalSelector, modalTimertId) {
     function showModalByScroll() {
 
         if (window.pageYOffset + document.documentElement.clientHeight >= document.documentElement.scrollHeight) {
-            openModal(modalSelector, modalTimertId);
+            if (isFirstModalOpenByScroll) {
+                openModal(modalSelector, modalTimertId);
+                
+            }            
             // window.removeEventListener('scroll', showModalByScroll);                     - Тут неправилно ставить это, потому что если открыть модальное окно и потом пролистать вниз страницы, то оно снова откроется
         }
     
     }
 
-    if (!isModalOpen) {
+    if (isFirstModalOpenByScroll) {
         window.addEventListener('scroll', showModalByScroll/* , {once: true} - не сработает, т.к. addEventListener работает сразу же при скролле*/);
     } else {
         window.removeEventListener('scroll', showModalByScroll);
