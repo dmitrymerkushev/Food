@@ -8,13 +8,11 @@ function openModal(modalSelector, modalTimertId) {
     modal.classList.remove('hide');
     document.body.style.overflow = 'hidden';
 
-    console.log(modalTimertId);
     if (modalTimertId) {
         clearInterval(modalTimertId);
     }
 
     isModalOpen = true;
-    console.log(isModalOpen);
 
     // window.removeEventListener('scroll', showModalByScroll(modalSelector, modalTimertId)); // - предотвращало повторное открывание окна при скорлле, но при использовании модулей перестало работать
 }
@@ -56,7 +54,6 @@ function modal(triggerSelector, modalSelector, modalTimertId) {
     function showModalByScroll() {
 
         if (window.pageYOffset + document.documentElement.clientHeight >= document.documentElement.scrollHeight) {
-            console.log('show');
             openModal(modalSelector, modalTimertId);
             // window.removeEventListener('scroll', showModalByScroll);                     - Тут неправилно ставить это, потому что если открыть модальное окно и потом пролистать вниз страницы, то оно снова откроется
         }
