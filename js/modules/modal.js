@@ -1,3 +1,7 @@
+let isModalOpen = false;
+console.log(isModalOpen);
+
+
 function openModal(modalSelector, modalTimertId) {
     const modal = document.querySelector(modalSelector);
     modal.classList.add('show');
@@ -8,7 +12,11 @@ function openModal(modalSelector, modalTimertId) {
     if (modalTimertId) {
         clearInterval(modalTimertId);
     }
-    // window.removeEventListener('scroll', showModalByScroll); - предотвращало повторное открывание окна при скорлле, но при использовании модулей перестало работать
+
+    isModalOpen = true;
+    console.log(isModalOpen);
+
+    // window.removeEventListener('scroll', showModalByScroll(modalSelector, modalTimertId)); // - предотвращало повторное открывание окна при скорлле, но при использовании модулей перестало работать
 }
 
 function closeModal(modalSelector) {
@@ -17,6 +25,8 @@ function closeModal(modalSelector) {
     modal.classList.remove('show');
     document.body.style.overflow = '';
 }
+
+
 
 function modal(triggerSelector, modalSelector, modalTimertId) {
     // Modal
@@ -44,13 +54,20 @@ function modal(triggerSelector, modalSelector, modalTimertId) {
     });
 
     function showModalByScroll() {
+
         if (window.pageYOffset + document.documentElement.clientHeight >= document.documentElement.scrollHeight) {
+            console.log('show');
             openModal(modalSelector, modalTimertId);
             // window.removeEventListener('scroll', showModalByScroll);                     - Тут неправилно ставить это, потому что если открыть модальное окно и потом пролистать вниз страницы, то оно снова откроется
         }
+    
     }
 
-    window.addEventListener('scroll', showModalByScroll/* , {once: true} - не сработает, т.к. addEventListener работает сразу же при скролле*/);
+    if (!isModalOpen) {
+        window.addEventListener('scroll', showModalByScroll/* , {once: true} - не сработает, т.к. addEventListener работает сразу же при скролле*/);
+    } else {
+        window.removeEventListener('scroll', showModalByScroll);
+    }
 }
 
 export default modal;

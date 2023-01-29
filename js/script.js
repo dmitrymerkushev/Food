@@ -12,7 +12,7 @@ import { openModal } from './modules/modal';
 
 window.addEventListener('DOMContentLoaded', () => {
 
-    const modalTimertId = setTimeout(() => openModal('.modal', modalTimertId), 3000); 
+    const modalTimertId = setTimeout(() => openModal('.modal', modalTimertId), 30000); 
 
 
     tabs('.tabheader__item', '.tabcontent', '.tabheader__items', 'tabheader__item_active'); 
