@@ -1,5 +1,4 @@
 let isModalOpen = false;
-console.log(isModalOpen);
 
 
 function openModal(modalSelector, modalTimertId) {
